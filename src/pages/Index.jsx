@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Box, Container, Flex, Heading, Text, VStack, Link, Input, Textarea, Button } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Text, VStack, Link, Input, Textarea, Button, useColorMode, IconButton } from "@chakra-ui/react";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 const Index = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const [posts, setPosts] = useState([
     { title: "Blog Post Title", content: "This is a placeholder for the blog post content. More content will be added here later." },
     { title: "Another Blog Post", content: "This is another placeholder for the blog post content. More content will be added here later." }
@@ -27,6 +30,15 @@ const Index = () => {
         <Container maxW="container.lg">
           <Flex justify="space-between" align="center">
             <Heading as="h1" size="lg">My Personal Blog</Heading>
+            <IconButton
+              icon={colorMode === "light" ? <FaMoon /> : <FaSun />}
+              isRound
+              size="md"
+              alignSelf="center"
+              onClick={toggleColorMode}
+              aria-label="Toggle Dark Mode"
+              mx={2}
+            />
             <Flex as="nav">
               <Link href="#" mx={2} color="white">Home</Link>
               <Link href="#" mx={2} color="white">About</Link>
