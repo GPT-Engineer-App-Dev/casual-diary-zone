@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Container, Flex, Heading, Text, VStack, Link, Input, Textarea, Button, useColorMode, IconButton } from "@chakra-ui/react";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaSun, FaMoon, FaTrash } from "react-icons/fa";
 
 const Index = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -21,6 +21,11 @@ const Index = () => {
     e.preventDefault();
     setPosts([...posts, newPost]);
     setNewPost({ title: "", content: "" });
+  };
+
+  const handleDelete = (index) => {
+    const newPosts = posts.filter((_, i) => i !== index);
+    setPosts(newPosts);
   };
 
   return (
@@ -53,7 +58,18 @@ const Index = () => {
         <VStack spacing={8}>
           {posts.map((post, index) => (
             <Box as="article" w="100%" p={4} borderWidth="1px" borderRadius="md" key={index}>
-              <Heading as="h2" size="md">{post.title}</Heading>
+              <Flex justify="space-between" align="center">
+                <Heading as="h2" size="md">{post.title}</Heading>
+                <IconButton
+                  icon={<FaTrash />}
+                  isRound
+                  size="md"
+                  alignSelf="center"
+                  onClick={() => handleDelete(index)}
+                  aria-label="Delete Post"
+                  mx={2}
+                />
+              </Flex>
               <Text mt={4}>{post.content}</Text>
             </Box>
           ))}
